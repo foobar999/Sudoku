@@ -6,7 +6,6 @@ namespace Foobar999.Sudoku.Utility
 {
 	public class JaggedFieldMapper : IMapper<String[][], String[,]>
 	{
-		// https://stackoverflow.com/questions/1781172/generate-a-two-dimensional-array-via-linq/1814063#1814063
 		public String[,] Map(String[][] data)
 		{
 			if (data == null)

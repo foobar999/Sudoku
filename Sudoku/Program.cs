@@ -15,6 +15,7 @@ namespace Foobar999.Sudoku
 			IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
 			serviceProvider.GetService<IApplication>().Run(args);
+
 			serviceProvider.GetService<ILoggerFactory>().Dispose(); // required for logging of final messages
 		}
 	}
