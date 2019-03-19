@@ -4,6 +4,8 @@ using Foobar999.Sudoku.Utility;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Thinktecture.IO;
+using Thinktecture.IO.Adapters;
 
 namespace Foobar999.Sudoku.DependencyInjection
 {
@@ -15,8 +17,10 @@ namespace Foobar999.Sudoku.DependencyInjection
 			serviceCollection.AddTransient<IReader<String, String[][]>, JaggedFieldReader>();
 			serviceCollection.AddTransient<IMapper<String[][], String[,]>, JaggedFieldMapper>();
 			serviceCollection.AddTransient<IMapper<String[,], Byte[,]>, ByteFieldMapper>();
-			serviceCollection.AddTransient<IApplication, Application>();
 
+			serviceCollection.AddTransient<IFile, FileAdapter>();
+
+			serviceCollection.AddTransient<IApplication, Application>();
 			serviceCollection.AddLogging(loggingBuilder =>
 			{
 				loggingBuilder.SetMinimumLevel(LogLevel.Debug);
