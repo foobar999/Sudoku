@@ -32,12 +32,6 @@ namespace Foobar999.Sudoku
 
 			Byte[,] field = this.fieldReader.Read(args[0]);
 
-			if (field.Length == 0)
-			{
-				this.logger.LogError("Read field must contain at least one element.");
-				return;
-			}
-
 			this.logger.LogInformation("Read following field:");
 			this.logger.LogInformation(JsonConvert.SerializeObject(field, Formatting.Indented));
 			this.logger.LogInformation($"Field dimensions: {field.GetLength(0)} x {field.GetLength(1)}.");

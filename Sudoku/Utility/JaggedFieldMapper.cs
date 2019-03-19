@@ -11,6 +11,7 @@ namespace Foobar999.Sudoku.Utility
 		{
 			Int32 rows = data.Length;
 			Int32 cols = data.Max(subArray => subArray.Length);
+
 			String[,] array = new String[rows, cols];
 			for (Int32 i = 0; i < rows; i++)
 			{
