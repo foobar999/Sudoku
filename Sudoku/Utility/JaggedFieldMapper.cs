@@ -6,31 +6,31 @@ namespace Foobar999.Sudoku.Utility
 {
 	public class JaggedFieldMapper<T> : IMapper<T[][], T[,]>
 	{
-		public T[,] Map(T[][] data)
+		public T[,] Map(T[][] jaggedField)
 		{
-			if (data == null)
+			if (jaggedField == null)
 			{
-				throw new ArgumentNullException(nameof(data));
+				throw new ArgumentNullException(nameof(jaggedField));
 			}
 
-			Int32 rows = data.Length;
-			Int32 columns = data.Max(subArray => subArray.Length);
+			Int32 rows = jaggedField.Length;
+			Int32 columns = jaggedField.Max(subArray => subArray.Length);
 			
-			if (!data.All(row => row.Length == columns))
+			if (!jaggedField.All(row => row.Length == columns))
 			{
-				throw new ArgumentOutOfRangeException(nameof(data), "Not all rows have the same number of columns.");
+				throw new ArgumentOutOfRangeException(nameof(jaggedField), "Not all rows have the same number of columns.");
 			}
 
-			T[,] array = new T[rows, columns];
+			T[,] field = new T[rows, columns];
 			for (Int32 i = 0; i < rows; i++)
 			{
-				columns = data[i].Length;
+				columns = jaggedField[i].Length;
 				for (Int32 j = 0; j < columns; j++)
 				{
-					array[i, j] = data[i][j];
+					field[i, j] = jaggedField[i][j];
 				}
 			}
-			return array;
+			return field;
 		}
 	}
 }

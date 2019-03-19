@@ -1,7 +1,6 @@
 ﻿using Foobar999.Sudoku.DependencyInjection;
 using Foobar999.Sudoku.Interface;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 
 namespace Foobar999.Sudoku
@@ -12,11 +11,10 @@ namespace Foobar999.Sudoku
 		{
 			IServiceCollection serviceCollection = new ServiceConfigurator().ConfigureServices(new ServiceCollection());
 
-			IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-
-			serviceProvider.GetService<IApplication>().Run(args);
-
-			serviceProvider.GetService<ILoggerFactory>().Dispose(); // required for logging of final messages
+			using (ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider()) // required for logging of final messages (https://github.com/serilog/serilog-extensions-logging-file/issues/16)
+			{
+				serviceProvider.GetService<IApplication>().Run(args);
+			}
 		}
 	}
 }

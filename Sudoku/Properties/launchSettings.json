@@ -2,7 +2,7 @@
   "profiles": {
     "Sudoku": {
       "commandName": "Project",
-      "commandLineArgs": "sudoku_9x9.txt"
+      "commandLineArgs": "-f sudoku_9x9.txt "
     }
   }
 }

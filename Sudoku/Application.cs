@@ -1,4 +1,7 @@
-﻿using Foobar999.Sudoku.Interface;
+﻿using CommandLine;
+using CommandLine.Text;
+using Foobar999.Sudoku.Cli;
+using Foobar999.Sudoku.Interface;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -23,23 +26,27 @@ namespace Foobar999.Sudoku
 				throw new ArgumentNullException(nameof(args));
 			}
 
-			if (args.Length != 1)
+			Parser parser = new Parser(config => config.HelpWriter = null);
+			ParserResult<Options> parserResult =parser.ParseArguments<Options>(args);
+
+			parserResult.WithParsed(opts =>
 			{
-				throw new ArgumentOutOfRangeException(nameof(args), "Parameter must contain exactly one element.");
-			}
+				this.logger.LogInformation($"Reading field from {opts.FilePath}");
+				Byte[,] field = this.fieldReader.Read(opts.FilePath);
 
-			this.logger.LogInformation($"Reading field from {args[0]}");
-			Byte[,] field = this.fieldReader.Read(args[0]);
+				this.logger.LogInformation("Read following field:");
+				this.logger.LogInformation(JsonConvert.SerializeObject(field, Formatting.Indented));
+				this.logger.LogInformation($"Field dimensions: {field.GetLength(0)} x {field.GetLength(1)}.");
+				
+			});
 
-			this.logger.LogInformation("Read following field:");
-			this.logger.LogInformation(JsonConvert.SerializeObject(field, Formatting.Indented));
-			this.logger.LogInformation($"Field dimensions: {field.GetLength(0)} x {field.GetLength(1)}.");
-			
-
-
-
-
-
+			parserResult.WithNotParsed((errs) =>
+			{
+				String message = HelpText.AutoBuild(parserResult).ToString();
+				this.logger.LogError(message);
+				this.logger.LogError("\n");
+				
+			});
 		}
 	}
 }
