@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Foobar999.Sudoku.Io
 {
-	public class JaggedFieldReader : IReader<String, Byte[][]>
+	public class JaggedByteFieldReader : IReader<String, Byte[][]>
 	{
 		public Byte[][] Read(String filePath)
 		{
