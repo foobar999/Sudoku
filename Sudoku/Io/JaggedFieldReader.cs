@@ -16,6 +16,11 @@ namespace Foobar999.Sudoku.Io
 
 		public String[][] Read(String filePath)
 		{
+			if (String.IsNullOrWhiteSpace(filePath))
+			{
+				throw new ArgumentOutOfRangeException(nameof(filePath), "Parameter must not be null, empty or whitespace.");
+			}
+
 			return this.file.ReadLines(filePath).Select(x => this.GetLineTokens(x)).Where(x => x.Length > 0).ToArray();
 		}
 
