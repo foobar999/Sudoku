@@ -1,16 +1,16 @@
 ﻿using Foobar999.Sudoku.Interface;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
-using System.Threading;
 
 namespace Foobar999.Sudoku
 {
 	public class Application : IApplication
 	{
-		private readonly IReader<String, Int32[,]> fieldReader;
+		private readonly IReader<String, Byte[,]> fieldReader;
 		private readonly ILogger<Application> logger;
 
-		public Application(IReader<String, Int32[,]> fieldReader, ILogger<Application> logger)
+		public Application(IReader<String, Byte[,]> fieldReader, ILogger<Application> logger)
 		{
 			this.fieldReader = fieldReader ?? throw new ArgumentNullException(nameof(fieldReader));
 			this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -30,7 +30,7 @@ namespace Foobar999.Sudoku
 
 			this.logger.LogInformation($"Reading field from {args[0]}");
 
-			Int32[,] field = this.fieldReader.Read(args[0]);
+			Byte[,] field = this.fieldReader.Read(args[0]);
 
 			if (field.Length == 0)
 			{
@@ -38,9 +38,15 @@ namespace Foobar999.Sudoku
 				return;
 			}
 
-			this.logger.LogDebug($"Read field {field}.");
-			this.logger.LogInformation($"Read field of size {field.GetLength(0)} x {field.GetLength(1)}.");
+			this.logger.LogInformation("Read following field:");
+			this.logger.LogInformation(JsonConvert.SerializeObject(field, Formatting.Indented));
+			this.logger.LogInformation($"Field dimensions: {field.GetLength(0)} x {field.GetLength(1)}.");
 			
+
+
+
+
+
 		}
 	}
 }

@@ -3,18 +3,18 @@ using System;
 
 namespace Foobar999.Sudoku.Io
 {
-	public class FieldReader : IReader<String, Int32[,]>
+	public class FieldReader<T> : IReader<String, T[,]>
 	{
-		private readonly IReader<String, Int32[][]> jaggedFieldReader;
-		private readonly IMapper<Int32[][], Int32[,]> jaggedFieldMapper;
+		private readonly IReader<String, T[][]> jaggedFieldReader;
+		private readonly IMapper<T[][], T[,]> jaggedFieldMapper;
 
-		public FieldReader(IReader<String, Int32[][]> jaggedFieldReader, IMapper<Int32[][], Int32[,]> jaggedFieldMapper)
+		public FieldReader(IReader<String, T[][]> jaggedFieldReader, IMapper<T[][], T[,]> jaggedFieldMapper)
 		{
 			this.jaggedFieldReader = jaggedFieldReader ?? throw new ArgumentNullException(nameof(jaggedFieldReader));
 			this.jaggedFieldMapper = jaggedFieldMapper ?? throw new ArgumentNullException(nameof(jaggedFieldMapper));
 		}
 
-		public Int32[,] Read(String data)
+		public T[,] Read(String data)
 		{
 			return this.jaggedFieldMapper.Map(this.jaggedFieldReader.Read(data));
 		}

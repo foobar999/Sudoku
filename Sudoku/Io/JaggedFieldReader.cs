@@ -5,13 +5,11 @@ using System.Linq;
 
 namespace Foobar999.Sudoku.Io
 {
-	public class JaggedFieldReader : IReader<String, Int32[][]>
+	public class JaggedFieldReader : IReader<String, Byte[][]>
 	{
-		public Int32[][] Read(String filePath)
+		public Byte[][] Read(String filePath)
 		{
-			
-
-			return File.ReadLines(filePath).Select(x => x.Split().Select(Int32.Parse).ToArray()).ToArray();
+			return File.ReadLines(filePath).Select(x => x.Split().Select(Byte.Parse).ToArray()).ToArray();
 		}
 	}
 }
