@@ -4,6 +4,6 @@ namespace Foobar999.Sudoku.Interface
 {
 	public interface IApplication
 	{
-		void Run(String[] args);
+		Int32 Run(String[] args);
 	}
 }

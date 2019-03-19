@@ -19,7 +19,7 @@ namespace Foobar999.Sudoku
 			this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
-		public void Run(String[] args)
+		public Int32 Run(String[] args)
 		{
 			if (args == null)
 			{
@@ -45,8 +45,9 @@ namespace Foobar999.Sudoku
 				String message = HelpText.AutoBuild(parserResult).ToString();
 				this.logger.LogError(message);
 				this.logger.LogError("\n");
-				
 			});
+
+			return (Int32)parserResult.Tag;
 		}
 	}
 }
