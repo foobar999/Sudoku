@@ -16,7 +16,7 @@ namespace Foobar999.Sudoku.DependencyInjection
 		{
 			serviceCollection.AddTransient<IReader<String, Byte[,]>, FieldReader<Byte>>();
 			serviceCollection.AddTransient<IReader<String, String[][]>, JaggedFieldReader>();
-			serviceCollection.AddTransient<IMapper<String[][], String[,]>, JaggedFieldMapper<String>>();
+			serviceCollection.AddTransient<IMapper<String[][], String[,]>, MatrixFieldMapper<String>>();
 			serviceCollection.AddTransient<IMapper<String[,], Byte[,]>, ByteFieldMapper>();
 			serviceCollection.AddTransient<IValidator<Byte[,], Byte[,]>, ByteFieldValidator>();
 

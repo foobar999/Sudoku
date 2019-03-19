@@ -1,5 +1,4 @@
 ﻿using CommandLine;
-using CommandLine.Text;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -16,11 +15,10 @@ namespace Foobar999.Sudoku.Cli
 		//	HelpText = "Prints all messages to standard output.")]
 		//public bool Verbose { get; set; }
 
-		[Option('r', "blockrows", Default = 0U, HelpText = "Number of rows per block")]
-		public UInt32 NumBlockRows { get; set; }
+		[Option('r', "blockrows", Default = 0, HelpText = "Number of rows per block")]
+		public Int32 NumBlockRows { get; set; }
 
-		[Option('c', "blockcolumns", Default = 0U, HelpText = "Number of columns per block")]
-		public UInt32 NumBlockColumns { get; set; }
-		
+		[Option('c', "blockcolumns", Default = 0, HelpText = "Number of columns per block")]
+		public Int32 NumBlockColumns { get; set; }
 	}
 }
