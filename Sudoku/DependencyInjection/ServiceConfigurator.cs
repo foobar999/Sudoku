@@ -11,9 +11,10 @@ namespace Foobar999.Sudoku.DependencyInjection
 	{
 		public IServiceCollection ConfigureServices(IServiceCollection serviceCollection)
 		{
-			serviceCollection.AddTransient<IReader<String, Byte[][]>, JaggedByteFieldReader>();
 			serviceCollection.AddTransient<IReader<String, Byte[,]>, FieldReader<Byte>>();
-			serviceCollection.AddTransient<IMapper<Byte[][], Byte[,]>, JaggedFieldMapper<Byte>>();
+			serviceCollection.AddTransient<IReader<String, String[][]>, JaggedFieldReader>();
+			serviceCollection.AddTransient<IMapper<String[][], String[,]>, JaggedFieldMapper>();
+			serviceCollection.AddTransient<IMapper<String[,], Byte[,]>, ByteFieldMapper>();
 			serviceCollection.AddTransient<IApplication, Application>();
 
 			serviceCollection.AddLogging(loggingBuilder =>
