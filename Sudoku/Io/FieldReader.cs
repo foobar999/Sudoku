@@ -24,9 +24,14 @@ namespace Foobar999.Sudoku.Io
 			this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
-		public T[,] Read(String data)
+		public T[,] Read(String filePath)
 		{
-			String[][] jaggedField = this.jaggedFieldReader.Read(data);
+			if (String.IsNullOrWhiteSpace(filePath))
+			{
+				throw new ArgumentOutOfRangeException(nameof(filePath), "Parameter must not be null, empty or whitespace.");
+			}
+
+			String[][] jaggedField = this.jaggedFieldReader.Read(filePath);
 
 			Int32 maxNumberOfColumns = jaggedField.Max(row => row.Length);
 			if(!jaggedField.All(row => row.Length == maxNumberOfColumns))

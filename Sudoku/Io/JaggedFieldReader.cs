@@ -1,6 +1,5 @@
 ﻿using Foobar999.Sudoku.Interface;
 using System;
-using System.IO;
 using System.Linq;
 using Thinktecture.IO;
 

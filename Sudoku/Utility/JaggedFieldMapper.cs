@@ -9,6 +9,11 @@ namespace Foobar999.Sudoku.Utility
 		// https://stackoverflow.com/questions/1781172/generate-a-two-dimensional-array-via-linq/1814063#1814063
 		public String[,] Map(String[][] data)
 		{
+			if (data == null)
+			{
+				throw new ArgumentNullException(nameof(data));
+			}
+
 			Int32 rows = data.Length;
 			Int32 cols = data.Max(subArray => subArray.Length);
 
