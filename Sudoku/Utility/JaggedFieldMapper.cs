@@ -15,13 +15,18 @@ namespace Foobar999.Sudoku.Utility
 			}
 
 			Int32 rows = data.Length;
-			Int32 cols = data.Max(subArray => subArray.Length);
+			Int32 columns = data.Max(subArray => subArray.Length);
+			
+			if (!data.All(row => row.Length == columns))
+			{
+				throw new ArgumentOutOfRangeException(nameof(data), "Not all rows have the same number of columns.");
+			}
 
-			String[,] array = new String[rows, cols];
+			String[,] array = new String[rows, columns];
 			for (Int32 i = 0; i < rows; i++)
 			{
-				cols = data[i].Length;
-				for (Int32 j = 0; j < cols; j++)
+				columns = data[i].Length;
+				for (Int32 j = 0; j < columns; j++)
 				{
 					array[i, j] = data[i][j];
 				}

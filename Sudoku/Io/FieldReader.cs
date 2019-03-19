@@ -10,18 +10,18 @@ namespace Foobar999.Sudoku.Io
 		private readonly IReader<String, String[][]> jaggedFieldReader;
 		private readonly IMapper<String[][], String[,]> jaggedFieldMapper;
 		private readonly IMapper<String[,], T[,]> fieldTypeMapper;
-		private readonly ILogger<FieldReader<T>> logger;
+		private readonly IValidator<T[,], T[,]> fieldValidator;
 
 		public FieldReader(
 			IReader<String, String[][]> jaggedFieldReader,
 			IMapper<String[][], String[,]> jaggedFieldMapper,
 			IMapper<String[,], T[,]> fieldTypeMapper,
-			ILogger<FieldReader<T>> logger)
+			IValidator<T[,], T[,]> fieldValidator)
 		{
 			this.jaggedFieldReader = jaggedFieldReader ?? throw new ArgumentNullException(nameof(jaggedFieldReader));
 			this.jaggedFieldMapper = jaggedFieldMapper ?? throw new ArgumentNullException(nameof(jaggedFieldMapper));
 			this.fieldTypeMapper = fieldTypeMapper ?? throw new ArgumentNullException(nameof(fieldTypeMapper));
-			this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			this.fieldValidator = fieldValidator ?? throw new ArgumentNullException(nameof(fieldValidator));
 		}
 
 		public T[,] Read(String filePath)
@@ -31,15 +31,7 @@ namespace Foobar999.Sudoku.Io
 				throw new ArgumentOutOfRangeException(nameof(filePath), "Parameter must not be null, empty or whitespace.");
 			}
 
-			String[][] jaggedField = this.jaggedFieldReader.Read(filePath);
-
-			Int32 maxNumberOfColumns = jaggedField.Max(row => row.Length);
-			if(!jaggedField.All(row => row.Length == maxNumberOfColumns))
-			{
-				this.logger.LogWarning($"Not all rows have the same number of columns. Zero-padding all rows to maximum column number {maxNumberOfColumns}");
-			}
-
-			return this.fieldTypeMapper.Map(this.jaggedFieldMapper.Map(jaggedField));
+			return this.fieldValidator.ValidateThrows(this.fieldTypeMapper.Map(this.jaggedFieldMapper.Map(this.jaggedFieldReader.Read(filePath))));
 		}
 	}
 }

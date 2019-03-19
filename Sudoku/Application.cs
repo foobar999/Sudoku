@@ -29,7 +29,6 @@ namespace Foobar999.Sudoku
 			}
 
 			this.logger.LogInformation($"Reading field from {args[0]}");
-
 			Byte[,] field = this.fieldReader.Read(args[0]);
 
 			this.logger.LogInformation("Read following field:");

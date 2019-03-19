@@ -1,6 +1,7 @@
 ﻿using Foobar999.Sudoku.Interface;
 using Foobar999.Sudoku.Io;
 using Foobar999.Sudoku.Utility;
+using Foobar999.Sudoku.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,6 +18,7 @@ namespace Foobar999.Sudoku.DependencyInjection
 			serviceCollection.AddTransient<IReader<String, String[][]>, JaggedFieldReader>();
 			serviceCollection.AddTransient<IMapper<String[][], String[,]>, JaggedFieldMapper>();
 			serviceCollection.AddTransient<IMapper<String[,], Byte[,]>, ByteFieldMapper>();
+			serviceCollection.AddTransient<IValidator<Byte[,], Byte[,]>, ByteFieldValidator>();
 
 			serviceCollection.AddTransient<IFile, FileAdapter>();
 
