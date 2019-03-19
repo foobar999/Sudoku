@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Foobar999.Sudoku.Utility
 {
-	public class JaggedFieldMapper : IMapper<String[][], String[,]>
+	public class JaggedFieldMapper<T> : IMapper<T[][], T[,]>
 	{
-		public String[,] Map(String[][] data)
+		public T[,] Map(T[][] data)
 		{
 			if (data == null)
 			{
@@ -21,7 +21,7 @@ namespace Foobar999.Sudoku.Utility
 				throw new ArgumentOutOfRangeException(nameof(data), "Not all rows have the same number of columns.");
 			}
 
-			String[,] array = new String[rows, columns];
+			T[,] array = new T[rows, columns];
 			for (Int32 i = 0; i < rows; i++)
 			{
 				columns = data[i].Length;
