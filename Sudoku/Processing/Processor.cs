@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Foobar999.Sudoku.Processing
 {
@@ -49,8 +51,13 @@ namespace Foobar999.Sudoku.Processing
 				NumBlockColumns = numBlockColumns
 			};
 
-			IEnumerable<SudokuResult> results = this.solver.Solve(sudokuItem);
-			this.logger.LogInformation("Results:");
+			this.logger.LogInformation("Solving Sudoku...");
+
+			Stopwatch stopWatch = Stopwatch.StartNew();
+			IEnumerable<SudokuResult> results = this.solver.Solve(sudokuItem).ToList();
+			stopWatch.Stop();
+
+			this.logger.LogInformation($"Found {results.Count()} results in {stopWatch.Elapsed.ToString()}:");
 			foreach(SudokuResult result in results)
 			{
 				this.logger.LogInformation(result.Field.ToStringPretty());
