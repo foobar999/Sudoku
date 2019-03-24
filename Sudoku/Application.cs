@@ -3,6 +3,7 @@ using CommandLine.Text;
 using Foobar999.Sudoku.Cli;
 using Foobar999.Sudoku.Interface;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 
 namespace Foobar999.Sudoku
@@ -30,6 +31,7 @@ namespace Foobar999.Sudoku
 
 			parserResult.WithParsed(options =>
 			{
+				this.logger.LogInformation($"Processing arguments {JsonConvert.SerializeObject(options)}");
 				this.processor.Process(options);
 			});
 
