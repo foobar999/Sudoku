@@ -1,5 +1,7 @@
-﻿using Foobar999.Sudoku.Interface;
+﻿using Foobar999.Sudoku.Cli;
+using Foobar999.Sudoku.Interface;
 using Foobar999.Sudoku.Io;
+using Foobar999.Sudoku.Processing;
 using Foobar999.Sudoku.Utility;
 using Foobar999.Sudoku.Validation;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,7 @@ namespace Foobar999.Sudoku.DependencyInjection
 			serviceCollection.AddTransient<IFile, FileAdapter>();
 
 			serviceCollection.AddTransient<IApplication, Application>();
+			serviceCollection.AddTransient<IProcessor<Options, Object>, Processor>();
 			serviceCollection.AddLogging(loggingBuilder =>
 			{
 				loggingBuilder.SetMinimumLevel(LogLevel.Debug);
